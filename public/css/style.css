@@ -12,8 +12,79 @@ footer .row {
 	height: 100%;
 }
 
-@media only screen and (max-width: 768px) {
-	#carouselExampleIndicators {
-		width: 100% !important;
+.wrapper {
+	margin: 50px auto;
+	padding: 30px 25px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px #ccc;
+}
+
+.wrapper h1 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.card-block {
+	padding: 15px;
+}
+
+.w30 {
+	width: 30%;
+}
+
+.w20 {
+	width: 20%;
+}
+
+.w10 {
+	width: 10%;
+}
+
+.w5 {
+	width: 5%;
+}
+
+.articles {
+	margin-top: 15px;
+}
+
+article {
+	padding-left: 10px;
+}
+
+article:nth-child(odd) {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+	.col-md-9 {
+		margin-top: 10px;
+	}
+
+	.card-block {
+		padding: 10px;
+	}
+
+	.btn-outline-primary {
+		padding: 5px 2px;
+		font-size: 15px;
+	}
+
+	article {
+		font-size: 13px;
+		width: 100%;
+		padding-left: 5px;
+	}
+
+	.w30 {
+		width: 20%;
+	}
+
+	.w20 {
+		width: 15%;
+	}
+
+	.w5 {
+		width: 10%;
 	}
 }
