@@ -15,7 +15,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
-                  <a class="navbar-brand" href="/">Let's Travel</a>
+                  <a class="navbar-brand" href="/">Blog</a>
                 
                   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -32,119 +32,27 @@
                         <a class="nav-link" href="/admin">Admin Page</a>
                       </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                      <input class="form-control mr-sm-2" type="search" placeholder="Phone Number" aria-label="Search">
-                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Call me</button>
-                    </form>
                 </div>
             </div>
           </nav>
     </header>
     <main>
-        <!-- Slider -->
-        <div class="container">
-            <div id="carouselExampleIndicators" class="carousel slide mt-20" data-ride="carousel">
-                <ol class="carousel-indicators">
-                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img class="d-block w-100" src="./images/slider-1.jpg" alt="First slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Golden Gate Bridge</h5>
-                        <p>San Francisco, U.S.</p>
-                      </div>
-                  </div>
-                  <div class="carousel-item">
-                    <img class="d-block w-100" src="./images/slider-2.jpg" alt="Second slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Niagara Falls</h5>
-                        <p>Border of Ontario, Canada, and New York, United States</p>
-                      </div>
-                  </div>
-                  <div class="carousel-item">
-                    <img class="d-block w-100" src="./images/slider-3.jpg" alt="Third slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Stonehenge</h5>
-                        <p>Wiltshire, England</p>
-                      </div>
-                  </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-        </div>
         <!-- Cards -->
         <div class="container mt-20">
-            <div class="row">
-                <div class="col-sm-6 col-md-4 d-flex pb-3">
+            <div class="row articles">
+                <% posts.forEach(post => { %>
+                  <div class="col-sm-6 col-md-4 d-flex pb-3">
                     <div class="card">
-                        <img src="./images/img-1.jpg" alt="Card Image" class="card-img-top">
+                        <img src='<%= post.imageURL %>' alt='<%=post.title%>' class="card-img-top">
                         <div class="card-body">
-                            <h4 class="card-title">Eiffel Tower</h4>
-                            <p class="card-text">The Eiffel Tower is a wrought iron lattice tower on the Champ de Mars in Paris, France.</p>
-                            <button class="btn btn-outline-info btn-sm">Details</button>
+                            <h3 class="date"><%= post.type %></h3>
+                            <h4 class="card-title"><%= post.title %></h4>
+                            <p class="card-text"><%= post.description %></p>
+                            <a href="/detail/<%= post.id %>" class="btn btn-outline-info btn-sm">Details</a>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-4 d-flex pb-3">
-                    <div class="card">
-                        <img src="./images/img-2.jpg" alt="Card Image" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Big Ben</h4>
-                            <p class="card-text">Big Ben is the nickname for the Great Bell of the clock at the north end of the Palace of Westminster in London.</p>
-                            <button class="btn btn-outline-info btn-sm">Details</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 d-flex pb-3">
-                    <div class="card">
-                        <img src="./images/img-3.jpg" alt="Card Image" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Statue of Liberty</h4>
-                            <p class="card-text">The Statue of Liberty is a colossal neoclassical sculpture on Liberty Island in New York Harbor in New York City, in the United States.</p>
-                            <button class="btn btn-outline-info btn-sm">Details</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 d-flex pb-3">
-                    <div class="card">
-                        <img src="./images/img-4.jpg" alt="Card Image" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Sydney Opera House</h4>
-                            <p class="card-text">The Sydney Opera House is a multi-venue performing arts centre in Sydney, Australia. It is one of the 20th century's most famous and distinctive buildings.</p>
-                            <button class="btn btn-outline-info btn-sm">Details</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 d-flex pb-3">
-                    <div class="card">
-                        <img src="./images/img-5.jpg" alt="Card Image" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Parliament Hill</h4>
-                            <p class="card-text">Parliament Hill, colloquially known as The Hill, is an area of Crown land on the southern banks of the Ottawa River in downtown Ottawa, Ontario. Its Gothic revival suite of buildings is the home of the Parliament of Canada and has architectural elements of national symbolic importance.</p>
-                            <button class="btn btn-outline-info btn-sm">Details</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 d-flex pb-3">
-                    <div class="card">
-                        <img src="./images/img-6.jpg" alt="Card Image" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Great Wall of China</h4>
-                            <p class="card-text">The Great Wall of China is a series of fortifications made of stone, brick, rammed earth, wood, and other materials, generally built to protect the Chinese states and empires against the raids and invasions.</p>
-                            <button class="btn btn-outline-info btn-sm">Details</button>
-                        </div>
-                    </div>
-                </div>
+                  </div>
+                <%})%>
             </div>
         </div>
     </main>
@@ -171,18 +79,18 @@
               </button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form action="/mails" method="POST">
                     <label for="name">Your name</label>
-                    <input type="text" class="form-control" id="name" name="" id="" placeholder="Name">
-                    <label for="phone">Phone Number</label>
-                    <input type="number" class="form-control" id="phone" placeholder="Phone">
+                    <input type="text" class="form-control" id="name" name="name" id="" placeholder="Name">
+                    <label for="email">Your email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                     <label for="message">Message</label>
-                    <input type="text" id="message" class="form-control" placeholder="Message">
+                    <textarea type="text" id="message" rows="4" class="form-control" name="message" placeholder="Message"></textarea>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>

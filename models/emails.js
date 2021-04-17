@@ -2,28 +2,22 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../utils/database');
 
-const Post = sequelize.define('post', {
+const Email = sequelize.define('email', {
 	id: {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,
 		allowNull: false,
 		primaryKey: true
 	},
-	title: {
+	email: {
 		type: Sequelize.STRING
 	},
-	description: {
-		type: Sequelize.STRING(1234)
+	name: {
+		type: Sequelize.STRING
 	},
 	text: {
 		type: Sequelize.STRING(6553)
-	},
-	type: {
-		type: Sequelize.STRING
-	},
-	imageURL: {
-		type: Sequelize.STRING
 	}
 });
 
-module.exports = Post;
+module.exports = Email;

@@ -15,12 +15,12 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                   </button>
-                  <a class="navbar-brand" href="/">Let's Travel</a>
+                  <a class="navbar-brand" href="/">Blog</a>
                 
                   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                       <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#">About Us</a>
@@ -45,9 +45,8 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Articles</a>
-                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Mails</a>
-                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Callback Requests</a>
+                                <a class="nav-link active" id="v-pills-articles-tab" data-toggle="pill" href="#v-pills-articles" role="tab" aria-controls="v-pills-articles" aria-selected="true">Articles</a>
+                                <a class="nav-link" id="v-pills-mails-tab" data-toggle="pill" href="#v-pills-mails" role="tab" aria-controls="v-pills-mails" aria-selected="false">Mails</a>
                               </div>
                         </div>
                     </div>
@@ -56,30 +55,78 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="tab-content" id="v-pills-tabContent">
-                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                    <button class="btn btn-outline-primary">Add Post</button>
+                                <div class="tab-pane fade show active" id="v-pills-articles" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <button class="btn btn-outline-primary create-post-btn">Add Post</button>
                                     <div class="articles">
-                                        <article class="d-flex justify-content-between align-items-center">
-                                            <div class="id w5"><%= posts[0].id %></div>
-                                            <div class="name w30"><%= posts[0].title %></div>
-                                            <div class="date w30"><%= posts[0].date %></div>
-                                            <div class="country w20"><%= posts[0].country %></div>
-                                            <div class="edit w10"><button class="btn btn-link">Edit</button></div>
-                                            <div class="remove w5"><button class="btn btn-link">X</button></div> 
-                                        </article>
-                                        <!-- <article class="d-flex justify-content-between align-items-center">
-                                            <div class="id w5">4</div>
-                                            <div class="name w30">Sydney Opera House</div>
-                                            <div class="date w30">2021-Nov-11</div>
-                                            <div class="country w20">Australia</div>
-                                            <div class="edit w10"><button class="btn btn-link">Edit</button></div>
-                                            <div class="remove w5"><button class="btn btn-link">X</button></div> 
-                                        </article> -->
+                                        <% posts.forEach((post,index) => {%>
+                                            <article class="d-flex justify-content-between align-items-center">
+                                                <div class="num w5"><%= (index+1) %></div>
+                                                <input type="hidden" class="id" value= <%= post.id %> >
+                                                <div class="name w30"><%= post.title %></div>
+                                                <div class="date w30"><%= post.createdAt %></div>
+                                                <div class="type w20"><%= post.type %></div>
+                                                <div class="edit w10"><button type="submit" class="btn btn-link update-post-btn">Edit</button></div>
+                                                <div class="remove w5"><button class="btn btn-link remove-btn">X</button></div> 
+                                            </article>
+                                        <%})%>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">Mails Content</div>
-                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">Callback Request Content</div>
-                              </div>
+                                <!-- Mails -->
+                                <div class="tab-pane fade" id="v-pills-mails" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                    <div class="mail-articles">
+                                        <% mails.forEach((mail,index) => {%>
+                                            <article class="d-flex justify-content-between align-items-center article-inline">
+                                                <div class="num w5"><%= (index+1) %></div>
+                                                <input type="hidden" class="id" value= <%= mail.id %> >
+                                                <div class="name w30"><%= mail.name %></div>
+                                                <div class="email w30"><%= mail.email %></div>
+                                                <div class="date w30"><%= mail.createdAt %></div>
+                                                <div class="remove w5"><button class="btn btn-link remove-btn">X</button></div>
+                                                <div class="text w100"><%= mail.text %></div> 
+                                            </article>
+                                        <%})%>
+                                    </div>
+                                </div>
+                                <!-- Create Form -->
+                                <div class="tab-pane fade" id="v-pills-create-post" role="tabpanel" aria-labelledby="v-pills-create-post-tab">
+                                    <h2>Create Post</h2>
+                                    <form class="create-post-form" action="/posts" method="POST">
+                                        <div class="form-group">
+                                            <label for="create-title">Title</label>
+                                            <input type="text" name="title" class="form-control" id="create-title" placeholder="Title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="create-type">Type</label>
+                                            <input type="text" name="type" class="form-control" id="create-type" placeholder="Type">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="create-image-url">Image</label>
+                                            <input type="text" name="url" class="form-control" id="create-image-url" placeholder="URL">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="create-text">Text</label>
+                                            <textarea name="text" class="form-control" id="create-text" rows="5"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-outline-primary">Create Post</button>
+                                    </form>
+                                </div>
+                                <!-- Update Form -->
+                                <div class="tab-pane fade" id="v-pills-update-post" role="tabpanel" aria-labelledby="v-pills-update-post-tab">
+                                    <h2>Update post</h2>
+                                    <form class="update-post-form">
+                                      <div class="form-group">
+                                        <label for="update-title">Title</label>
+                                        <input type="text" class="form-control" id="update-title" placeholder="Title">
+                                      </div>
+                                      
+                                      <div class="form-group">
+                                        <label for="update-text">Text</label>
+                                        <textarea class="form-control" id="update-text" rows="5"></textarea>
+                                      </div>
+                                      <button class="btn btn-primary">Update Post</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,5 +140,81 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        let addPostBtn = document.querySelector('.create-post-btn');
+        addPostBtn.addEventListener('click', () => {
+            document.getElementById('v-pills-articles').classList.remove('show');
+            document.getElementById('v-pills-articles').classList.remove('active');
+            document.getElementById('v-pills-create-post').classList.add('show');
+            document.getElementById('v-pills-create-post').classList.add('active');
+        });
+        
+        let articles = document.querySelector('.articles');
+
+        // Event Delegation for deleting posts
+        articles.addEventListener('click', (event) => {
+            if(event.target.classList.contains('remove-btn')) {
+                let id = event.target.parentNode.parentNode.querySelector('.id').value;
+                fetch('http://localhost:3000/posts/' + id, {
+                    method: 'DELETE'
+                }).then((res) => res.text())
+                .then(() => window.history.go())
+                .catch(() => console.log(err))
+            }
+        })
+
+        articles.addEventListener('click', async (event) => {
+            if(event.target.classList.contains('update-post-btn')) {
+                let id = event.target.parentNode.parentNode.querySelector('.id').value;
+                let postInfo = await fetch('http://localhost:3000/posts/' + id)
+                    .then((res) => res.json())
+                    .then((data) => data)
+                    .catch(() => console.log(err))
+                document.querySelector('#update-title').value = postInfo.title;
+                document.querySelector('#update-text').value = postInfo.text;
+                document.getElementById('v-pills-articles').classList.remove('show');
+                document.getElementById('v-pills-articles').classList.remove('active');
+                document.getElementById('v-pills-update-post').classList.add('show');
+                document.getElementById('v-pills-update-post').classList.add('active');
+            }
+        })
+
+        const updateForm = document.querySelector('.update-post-form');
+        const title = document.querySelector('#update-title');
+        const text = document.querySelector('#update-text');
+
+        updateForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const id = event.target.parentNode.parentNode.querySelector('.id').value;
+            fetch('http://localhost:3000/posts/' + id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: title.value,
+                    description: text.value.substring(0, text.value.indexOf('.') + 1),
+                    text: text.value,
+                })
+            }).then((res) => {
+                console.log("SS")
+                res.text();
+            })
+            .then(() => window.history.go())
+    })
+
+    let emailsBlock = document.querySelector('#v-pills-mails');
+
+    emailsBlock.addEventListener('click', (event) => {
+        if(event.target.classList.contains('remove-btn')) {
+            let id = event.target.parentNode.parentNode.querySelector('.id').value;
+            fetch('http://localhost:3000/mails/' + id, {
+                method: 'DELETE'
+            }).then((resp) => resp.text())
+            .then(() => window.history.go());
+        }
+    })
+
+    </script>
 </body>
 </html>
