@@ -27,14 +27,12 @@ sequelize
 		if (posts.length === 0) {
 			return Post.create({
 				title: 'Eiffel Tower',
-				date: new Date(2021, 4, 3),
 				description: 'Some Description',
 				text: 'Some Text',
 				country: 'France',
 				imageURL: './public/images/1.jpg'
 			});
 		}
-		return posts;
 	})
 	.then(() => {
 		app.listen(3000, (req, res) => {
