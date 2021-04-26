@@ -3,13 +3,19 @@ const app = express();
 const sequelize = require('./utils/database');
 let Post = require('./models/posts');
 let Email = require('./models/emails');
+let User = require('./models/users');
+const bcrypt = require('bcrypt');
+const auth = require('./controllers/auth');
+const cookieParser = require('cookie-parser');
 const { response } = require('express');
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
+app.use(cookieParser());
 
+// Handling homepage
 app.get('/', async (req, res) => {
 	Post.findAll()
 		.then((posts) => {
@@ -23,13 +29,19 @@ app.get('/', async (req, res) => {
 		});
 });
 
+// Handling admin and login
 app.get('/admin', async (req, res) => {
-	const posts = await Post.findAll();
-	const mails = await Email.findAll();
-	res.render('admin', {
-		posts: posts,
-		mails: mails
-	});
+	let token = req.cookies['auth_token'];
+	if (token && auth.checkToken(token)) {
+		const posts = await Post.findAll();
+		const mails = await Email.findAll();
+		res.render('admin', {
+			posts: posts,
+			mails: mails
+		});
+	} else {
+		res.redirect('/login');
+	}
 });
 
 // Creating Posts in db
@@ -150,6 +162,58 @@ app.get('/detail/:id', async (req, res) => {
 		date: post.createdAt,
 		text: post.text
 	});
+});
+
+app.get('/login', (req, res) => {
+	res.render('login', {});
+});
+
+// Handling Login
+app.post('/users/login', async (req, res) => {
+	const email = req.body.email;
+	const password = req.body.password;
+	const user = await User.findOne({
+		where: {
+			email: email
+		}
+	});
+	if (user) {
+		const result = await bcrypt.compare(password, user.password);
+		if (result) {
+			let token = auth.generateToken(user);
+			res.cookie('auth_token', token);
+			res.send({
+				redirectURL: '/admin'
+			});
+		} else {
+			res.status(400);
+			res.send('Rejected');
+		}
+	} else {
+		res.send('No such user exists');
+	}
+});
+
+// Handling Registration
+app.post('/users/register', async (req, res) => {
+	const email = req.body.email;
+	const password = req.body.password;
+	const user = await User.findOne({
+		where: {
+			email: email
+		}
+	});
+	if (!user) {
+		const encryptedPass = await bcrypt.hash(password, 12);
+		const response = await User.create({
+			email: email,
+			password: encryptedPass
+		});
+		console.log(response);
+		res.send('User Created');
+	} else {
+		res.send('User already exists');
+	}
 });
 
 sequelize
