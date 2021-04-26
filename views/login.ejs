@@ -20,7 +20,7 @@
                   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                       <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#">About Us</a>
@@ -36,5 +36,106 @@
             </div>
           </nav>
     </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-6 offset-3 login-container">
+                    <h1 style="text-align: center; margin-bottom: 15px;">Admin Page</h1>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="sign-in-tab" data-toggle="tab" href="#sign-in" role="tab" aria-controls="sign-in" aria-selected="true">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="sign-in" role="tabpanel" aria-labelledby="sign-in-tab">
+                            <form class="sign-in-form">
+                                <div class="form-group">
+                                    <label for="sign-in-email">Email address</label>
+                                    <input type="email" class="form-control" id="sign-in-email" aria-describedby="emailHelp" placeholder="Enter email">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="sign-in-password">Password</label>
+                                    <input type="password" class="form-control" id="sign-in-password" placeholder="Password">
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">Sign In</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form class="register-form">
+                                <div class="form-group">
+                                    <label for="register-email">Email address</label>
+                                    <input type="email" class="form-control" id="register-email" aria-describedby="emailHelp" placeholder="Enter email">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="register-password">Password</label>
+                                    <input type="password" class="form-control" id="register-password" placeholder="Password">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="register-re-enter-password">Password</label>
+                                    <input type="password" class="form-control" id="register-re-enter-password" placeholder="Re-enter Password">
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">Register</button>
+                            </form>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        const signInForm = document.querySelector('.sign-in-form');
+        const registerForm = document.querySelector('.register-form');
+
+
+        signInForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('sign-in-email').value;
+            const password = document.getElementById('sign-in-password').value;
+            fetch('http://localhost:3000/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email, password}),
+            })
+            .then(res => {
+              if(res.status === 400) {
+                throw new Error;
+              }
+              return res.json()
+            })
+            .then(data => {
+              window.location.href = data.redirectURL;
+            })
+            .catch(() => alert('Wrong Email or Password'))
+        })
+
+        registerForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const rePassword = document.getElementById('register-re-enter-password').value;
+            if(password !== rePassword) {
+                return;
+            } else {
+                fetch('http://localhost:3000/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email, password})
+                })
+                .then((res) => res.text())
+                .then((data) => window.alert(data));
+            }
+        })
+    </script>
 </body>
 </html>
