@@ -105,12 +105,13 @@ app.put('/posts/:id', async (req, res) => {
 		text: req.body.text,
 		description: req.body.description
 	};
-	const result = await Post.update(updatedValues, {
+	const [ numberOfAffectedRows, affectedRows ] = await Post.update(updatedValues, {
 		where: {
 			id: id
 		}
 	});
-	console.log(result);
+	console.log(numberOfAffectedRows);
+	console.log(affectedRows);
 	res.send('Updated');
 });
 
