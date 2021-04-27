@@ -20,6 +20,11 @@ footer .row {
 	height: 100%;
 }
 
+.about-footer {
+	position: absolute;
+	bottom: 0;
+}
+
 .wrapper {
 	margin: 50px auto;
 	padding: 30px 25px;
@@ -132,9 +137,5 @@ article:nth-child(odd) {
 
 	.w5 {
 		width: 10%;
-	}
-
-	.login-container {
-		width: 40rem;
 	}
 }

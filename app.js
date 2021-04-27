@@ -216,6 +216,11 @@ app.post('/users/register', async (req, res) => {
 	}
 });
 
+// Handling About Us
+app.get('/about', (req, res) => {
+	res.render('about', {});
+});
+
 sequelize
 	.sync()
 	.then(() => {
