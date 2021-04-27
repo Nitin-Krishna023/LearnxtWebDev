@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('test', 'postgres', 'password', {
+const sequelize = new Sequelize('test', 'root', 'password', {
 	logging: false,
 	host: 'localhost',
-	dialect: 'postgres',
+	dialect: 'mysql',
 	dialectOptions: {
 		dateStrings: true,
 		typeCast: true,
