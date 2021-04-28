@@ -163,9 +163,11 @@
             }
         })
 
+        let id;
+
         articles.addEventListener('click', async (event) => {
             if(event.target.classList.contains('update-post-btn')) {
-                let id = event.target.parentNode.parentNode.querySelector('.id').value;
+                id = event.target.parentNode.parentNode.querySelector('.id').value;
                 let postInfo = await fetch('http://localhost:3000/posts/' + id)
                     .then((res) => res.json())
                     .then((data) => data)
@@ -185,7 +187,6 @@
 
         updateForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            const id = event.target.parentNode.parentNode.querySelector('.id').value;
             fetch('http://localhost:3000/posts/' + id, {
                 method: 'PUT',
                 headers: {
@@ -197,7 +198,6 @@
                     text: text.value,
                 })
             }).then((res) => {
-                console.log("SS")
                 res.text();
             })
             .then(() => window.history.go())
@@ -207,7 +207,7 @@
 
     emailsBlock.addEventListener('click', (event) => {
         if(event.target.classList.contains('remove-btn')) {
-            let id = event.target.parentNode.parentNode.querySelector('.id').value;
+            const id = event.target.parentNode.parentNode.querySelector('.id').value;
             fetch('http://localhost:3000/mails/' + id, {
                 method: 'DELETE'
             }).then((resp) => resp.text())
