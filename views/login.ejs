@@ -95,7 +95,7 @@
             event.preventDefault();
             const email = document.getElementById('sign-in-email').value;
             const password = document.getElementById('sign-in-password').value;
-            fetch('http://localhost:3000/users/login', {
+            fetch('https://responsive-blog-5432.herokuapp.com/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -122,7 +122,7 @@
             if(password !== rePassword) {
                 return;
             } else {
-                fetch('http://localhost:3000/users/register', {
+                fetch('https://responsive-blog-5432.herokuapp.com/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

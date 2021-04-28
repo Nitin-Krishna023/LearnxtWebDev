@@ -155,7 +155,7 @@
         articles.addEventListener('click', (event) => {
             if(event.target.classList.contains('remove-btn')) {
                 let id = event.target.parentNode.parentNode.querySelector('.id').value;
-                fetch('http://localhost:3000/posts/' + id, {
+                fetch('https://responsive-blog-5432.herokuapp.com/posts/' + id, {
                     method: 'DELETE'
                 }).then((res) => res.text())
                 .then(() => window.history.go())
@@ -168,7 +168,7 @@
         articles.addEventListener('click', async (event) => {
             if(event.target.classList.contains('update-post-btn')) {
                 id = event.target.parentNode.parentNode.querySelector('.id').value;
-                let postInfo = await fetch('http://localhost:3000/posts/' + id)
+                let postInfo = await fetch('https://responsive-blog-5432.herokuapp.com/posts/' + id)
                     .then((res) => res.json())
                     .then((data) => data)
                     .catch(() => console.log(err))
@@ -187,7 +187,7 @@
 
         updateForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            fetch('http://localhost:3000/posts/' + id, {
+            fetch('https://responsive-blog-5432.herokuapp.com/posts/' + id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -208,7 +208,7 @@
     emailsBlock.addEventListener('click', (event) => {
         if(event.target.classList.contains('remove-btn')) {
             const id = event.target.parentNode.parentNode.querySelector('.id').value;
-            fetch('http://localhost:3000/mails/' + id, {
+            fetch('https://responsive-blog-5432.herokuapp.com/mails/' + id, {
                 method: 'DELETE'
             }).then((resp) => resp.text())
             .then(() => window.history.go());
