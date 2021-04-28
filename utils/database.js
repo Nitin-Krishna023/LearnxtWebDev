@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize(
-	'd5afds4d8fl74m',
-	'sytexdkoojxghm',
-	'976ff9e2303c8ccf4cd246cb9990084fe469585c8981c507905a3ec7d4fe21b1',
+	'ddd1568m1evt7b',
+	'haxfrojdvotrhl',
+	'20bda4bb4f4efdc6243e9d3ba4dba1e1b1febaaca88047c7f47e73c5d6a13cac',
 	{
 		logging: false,
 		host: 'postgresql-flat-76936',
@@ -17,6 +17,5 @@ const sequelize = new Sequelize(
 		operatorAliases: false
 	}
 );
-
 
 module.exports = sequelize;
