@@ -33,7 +33,9 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 			require: true,
 			rejectUnauthorized: false
 		}
-	}
+	},
+	timezone: '+05:30',
+	operatorAliases: false
 });
 
 module.exports = sequelize;
