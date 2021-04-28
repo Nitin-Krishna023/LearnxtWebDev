@@ -7,12 +7,15 @@ const sequelize = new Sequelize(
 	{
 		logging: false,
 		connectionString: process.env.DATABASE_URL,
-		ssl: true,
 		dialect: 'postgres',
 		dialectOptions: {
 			dateStrings: true,
 			typeCast: true,
-			timezone: '+05:30'
+			timezone: '+05:30',
+			ssl: {
+				require: true,
+				rejectUnauthorized: false // very important
+			}
 		},
 		timezone: '+05:30',
 		operatorAliases: false
