@@ -26,6 +26,9 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 	dialect: 'postgres',
 	protocol: 'postgres',
 	dialectOptions: {
+		dateStrings: true,
+		typeCast: true,
+		timezone: '+05:30',
 		ssl: {
 			require: true,
 			rejectUnauthorized: false
