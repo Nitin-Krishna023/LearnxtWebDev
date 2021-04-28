@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
 	'20bda4bb4f4efdc6243e9d3ba4dba1e1b1febaaca88047c7f47e73c5d6a13cac',
 	{
 		logging: false,
-		host: process.env.DATABASE_URL,
+		connectionString: process.env.DATABASE_URL,
 		ssl: true,
 		dialect: 'postgres',
 		dialectOptions: {
