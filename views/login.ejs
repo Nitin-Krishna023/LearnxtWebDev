@@ -130,7 +130,8 @@
                 body: JSON.stringify({email, password})
                 })
                 .then((res) => res.text())
-                .then((data) => window.alert(data));
+                .then((data) => window.alert(data))
+                .catch((err) => alert('Registration Failed'))
             }
         })
     </script>
